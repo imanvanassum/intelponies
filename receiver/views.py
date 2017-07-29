@@ -25,19 +25,15 @@ class IntelView(View):
     def post(self, request, *args, **kwargs):
         selfintel = False
         dict_ = request.POST.dict()
-        test = request.POST.lists()
-        print(dict_)
-        print()
-        print(type(dict_))
-        print(type(test))
+
         print(dict_['url'])
         print()
-        for k, v in test:
-            print(k,":",v)
         data = dict_['data_simple']
         find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
-        province = find_provname.group(1)
-        if province == dict_['province']:
+        province = find_provname.group(1).rstrip()
+        #print(province, type(province))
+        #print(dict_['prov'], type(dict_['prov']))
+        if province == dict_['prov']:
             selfintel = True
         find_race = re.search(r'Race\s+([^.]*(?=Soldiers))',data, re.M)
         race = find_race.group(1)
