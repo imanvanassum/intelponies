@@ -15,11 +15,11 @@ class IntelView(View):
 
     def post(self, request, *args, **kwargs):
         #print(request.POST.get('data_simple'))
-        print(request.POST)
+        #print(request.POST)
         with open('test.txt','a+') as f:
             #for line in request.POST:
             #    f.write(json.dumps(line) + '\n')
-            str_ = json.dumps(request.POST,
+            str_ = json.dumps(request.POST.get['data_simple'],
                     indent=4, sort_keys=True,separators=(',', ': '),
                     ensure_ascii=False)
             f.write(str_)

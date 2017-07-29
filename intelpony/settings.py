@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'receiver',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -127,6 +129,15 @@ LOGGING = {
     },
     'root': {'level': 'INFO'},
 }
+
+
+# Cross Origin Resource Sharing
+
+CORS_ORIGIN_WHITELIST = (
+    'utopia-game.com',
+    'localhost:8000',
+    '127.0.0.1:8000'
+)
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
