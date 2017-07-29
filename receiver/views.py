@@ -19,10 +19,11 @@ class IntelView(View):
         with open('test.txt','a+') as f:
             #for line in request.POST:
             #    f.write(json.dumps(line) + '\n')
-            str_ = json.dumps(request.POST.get['data_simple'],
+            str_ = json.dumps(request.POST.get('data_simple'),
                     indent=4, sort_keys=True,separators=(',', ': '),
                     ensure_ascii=False)
             f.write(str_)
+            f.write('\n')
         reply = {
             'success': True,
         }
