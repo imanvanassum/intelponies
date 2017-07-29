@@ -1,6 +1,6 @@
 from django.views import View
 from django.http import HttpResponse
-import json, logging
+import json, logging, re
 
 logger = logging.getLogger(__name__)
 
@@ -13,19 +13,38 @@ class HomeView(View):
 
 class IntelView(View):
 
+    """
+    The game sends the following information:
+    [url] = The page in the game, for instance /throne
+    [data_html] = Raw HTML content of the page, not used
+    [data_simple] = Cleaned version of the page data
+    [key] = A user-picked key to make sure we don't allow intel from non-Ponies
+    [prov] = The province of the user sending the data
+    """
+
     def post(self, request, *args, **kwargs):
-        #print(request.POST.get('data_simple'))
-        #print(request.POST)
-        with open('test.txt','a+') as f:
-            #for line in request.POST:
-            #    f.write(json.dumps(line) + '\n')
-            f.write('\n')
-            str_ = json.dumps(request.POST.get('data_simple'),
-                    indent=4, sort_keys=True,separators=(',', ': '),
-                    ensure_ascii=False)
-            f.write(str_)
-            f.write('\n')
-            f.write(request.POST.get('data_simple'))
+        selfintel = False
+        dict_ = request.POST.dict()
+        test = request.POST.lists()
+        print(dict_)
+        print()
+        print(type(dict_))
+        print(type(test))
+        print(dict_['url'])
+        print()
+        for k, v in test:
+            print(k,":",v)
+        data = dict_['data_simple']
+        find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
+        province = find_provname.group(1)
+        if province == dict_['province']:
+            selfintel = True
+        find_race = re.search(r'Race\s+([^.]*(?=Soldiers))',data, re.M)
+        race = find_race.group(1)
+        print('Race: ',race)
+        print('Province name: ',province)
+        print('Is your own? ', selfintel)
+
         reply = {
             'success': True,
         }
