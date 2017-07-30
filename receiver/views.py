@@ -1,8 +1,7 @@
 from django.views import View
 from django.http import HttpResponse
-import json, logging, re
-
-logger = logging.getLogger(__name__)
+import json, re
+from helpers import pagepicker
 
 
 class HomeView(View):
@@ -29,6 +28,7 @@ class IntelView(View):
         print(dict_['url'])
         print()
         data = dict_['data_simple']
+        pagepicker(dict_['url'])
         if dict_['url'] = 'http://utopia-game.com/wol/game/throne':
             find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
             province = find_provname.group(1).rstrip()
@@ -41,9 +41,12 @@ class IntelView(View):
             print('Race: ',race)
             print('Province name: ',province)
             print('Is your own? ', selfintel)
+        else:
+            pass
 
         if dict_['url'] = 'http://utopia-game.com/wol/game/thievery':
-            
+            pass
+
 
         reply = {
             'success': True,
