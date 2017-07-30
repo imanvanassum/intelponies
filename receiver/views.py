@@ -48,7 +48,7 @@ class IntelView(View):
 
         if current_page == 'kingdom_details':
             kdpage = kddetailsparser(data)
-            print(kdpage)
+            print('In views.py :',kdpage)
 
 
         reply = {
