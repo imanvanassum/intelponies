@@ -23,13 +23,17 @@ class IntelView(View):
 
     def post(self, request, *args, **kwargs):
         selfintel = False
+        find_provname = ''
         dict_ = request.POST.dict()
 
         print(dict_['url'])
+        print(type(dict_['url']))
         print()
         data = dict_['data_simple']
-        pagepicker(dict_['url'])
-        if dict_['url'] = 'http://utopia-game.com/wol/game/throne':
+        foo = pagepicker(dict_['url'])
+        print(foo)
+
+        if str(dict_['url']) = 'http://utopia-game.com/wol/game/throne':
             find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
             province = find_provname.group(1).rstrip()
             #print(province, type(province))
