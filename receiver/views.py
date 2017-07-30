@@ -29,17 +29,21 @@ class IntelView(View):
         print(dict_['url'])
         print()
         data = dict_['data_simple']
-        find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
-        province = find_provname.group(1).rstrip()
-        #print(province, type(province))
-        #print(dict_['prov'], type(dict_['prov']))
-        if province == dict_['prov']:
-            selfintel = True
-        find_race = re.search(r'Race\s+([^.]*(?=Soldiers))',data, re.M)
-        race = find_race.group(1)
-        print('Race: ',race)
-        print('Province name: ',province)
-        print('Is your own? ', selfintel)
+        if dict_['url'] = 'http://utopia-game.com/wol/game/throne':
+            find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
+            province = find_provname.group(1).rstrip()
+            #print(province, type(province))
+            #print(dict_['prov'], type(dict_['prov']))
+            if province == dict_['prov']:
+                selfintel = True
+            find_race = re.search(r'Race\s+([^.]*(?=Soldiers))',data, re.M)
+            race = find_race.group(1)
+            print('Race: ',race)
+            print('Province name: ',province)
+            print('Is your own? ', selfintel)
+
+        if dict_['url'] = 'http://utopia-game.com/wol/game/thievery':
+            
 
         reply = {
             'success': True,
