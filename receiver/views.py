@@ -26,18 +26,16 @@ class IntelView(View):
         find_provname = ''
         dict_ = request.POST.dict()
 
-        print(dict_['url'])
-        print(type(dict_['url']))
-        print()
+        #print(dict_['url'])
+        #print(type(dict_['url']))
+        #print()
         data = dict_['data_simple']
-        foo = pagepicker(dict_['url'])
-        print(foo)
+        current_page = pagepicker(dict_['url'])
+        print('Pagepicker returned:', current_page)
 
-        if str(dict_['url']) = 'http://utopia-game.com/wol/game/throne':
+        if current_page == 'throne':
             find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
             province = find_provname.group(1).rstrip()
-            #print(province, type(province))
-            #print(dict_['prov'], type(dict_['prov']))
             if province == dict_['prov']:
                 selfintel = True
             find_race = re.search(r'Race\s+([^.]*(?=Soldiers))',data, re.M)
@@ -48,7 +46,7 @@ class IntelView(View):
         else:
             pass
 
-        if dict_['url'] = 'http://utopia-game.com/wol/game/thievery':
+        if current_page == 'thievery':
             pass
 
 
