@@ -1,7 +1,7 @@
 from django.views import View
 from django.http import HttpResponse
 import json, re
-from helpers import pagepicker
+from receiver.helpers import pagepicker, kddetailsparser
 
 
 class HomeView(View):
@@ -46,8 +46,9 @@ class IntelView(View):
         else:
             pass
 
-        if current_page == 'thievery':
-            pass
+        if current_page == 'kingdom_details':
+            kdpage = kddetailsparser(data)
+            print(kdpage)
 
 
         reply = {
