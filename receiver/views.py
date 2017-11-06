@@ -1,5 +1,6 @@
 from django.views import View
 from django.http import HttpResponse
+from django.core.files import File
 import json, re
 from receiver.helpers import pagepicker, kddetailsparser
 
@@ -26,9 +27,6 @@ class IntelView(View):
         find_provname = ''
         dict_ = request.POST.dict()
 
-        #print(dict_['url'])
-        #print(type(dict_['url']))
-        #print()
         data = dict_['data_simple']
         current_page = pagepicker(dict_['url'])
         print('Pagepicker returned:', current_page)
@@ -50,6 +48,12 @@ class IntelView(View):
             kdpage = kddetailsparser(data)
             print('In views.py :',kdpage)
 
+        with open('test.txt', 'a') as f:
+            myfile = File(f)
+            myfile.write('----------------------- START OF PAGE ---------------------------' + '\n')
+            myfile.write(dict_['url'] + '\n')
+            myfile.write(dict_['data_simple'])
+            myfile.write('----------------------- END OF PAGE ---------------------------' + '\n')
 
         reply = {
             'success': True,
