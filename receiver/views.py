@@ -1,14 +1,31 @@
+from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.core.files import File
 import json, re
-from receiver.helpers import pagepicker, kddetailsparser
+from receiver.helpers import pagepicker, kddetailsparser, personalityfinder
+from receiver.models import Race, Province
 
+
+units = {
+'Human': {'ospec': 'Swordsmen', 'dspec': 'Archers', 'elites': 'Knights'}
+}
+kingdoms = {
+1: {'kingdom': 6,'island': 8}
+}
 
 class HomeView(View):
 
     def get(self, request, *args, **kwargs):
-        return HttpResponse('<html><head><title>Utopia Ponies</title></head><body><h1>WORKING ON IT!</h1></body></html>')
+        #return HttpResponse('<html><head><title>Utopia Ponies</title></head><body><h1>WORKING ON IT!</h1></body></html>')
+        return render(request, 'receiver/index.html')
+
+
+class UpoView(View):
+
+    def get(self, request, *args, **kwargs):
+        #return HttpResponse('<html><head><title>Utopia Ponies</title></head><body><h1>WORKING ON IT!</h1></body></html>')
+        return render(request, 'receiver/upoguide.html')
 
 
 class IntelView(View):
@@ -32,15 +49,21 @@ class IntelView(View):
         print('Pagepicker returned:', current_page)
 
         if current_page == 'throne':
-            find_provname = re.search(r'The Province of\s?([^.]*(?=\([0-9]))',data, re.M)
-            province = find_provname.group(1).rstrip()
-            if province == dict_['prov']:
+            find_provname = re.search(r'The Province of\s?([^.]*(?=\(([0-9])\:([0-9])))',data, re.M)
+            provname = find_provname.group(1).rstrip()
+            kingdom = find_provname.group(2).rstrip()
+            island = find_provname.group(3).rstrip()
+            if provname == dict_['prov']:
                 selfintel = True
             find_race = re.search(r'Race\s+([^.]*(?=Soldiers))',data, re.M)
             race = find_race.group(1)
+            find_ruler = re.search(r'Ruler\s*(.*){}'.format(units[race]['ospec']),data, re.M)
+            ruler = find_ruler.group(0)
+            personality = personalityfinder(ruler)
             print('Race: ',race)
-            print('Province name: ',province)
+            print('Province name: ',provname)
             print('Is your own? ', selfintel)
+
         else:
             pass
 
@@ -55,8 +78,12 @@ class IntelView(View):
             myfile.write(dict_['data_simple'])
             myfile.write('----------------------- END OF PAGE ---------------------------' + '\n')
 
+        # name,ruler,race,personality,kingdom
+        Province.objects.create(provname,ruler,race,)
+
+
         reply = {
             'success': True,
         }
-        i_hate_javascript = json.JSONEncoder().encode(reply)
-        return HttpResponse(i_hate_javascript)
+        fuckmunk = json.JSONEncoder().encode(reply)
+        return HttpResponse(fuckmunk)

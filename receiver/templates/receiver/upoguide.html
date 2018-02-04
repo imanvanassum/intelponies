@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Utopia Ponies</title>
+    {% load static %}
+  </head>
+  <body>
+    <h2>How to configure the game's Intel sharing option to send intel to UpoOpu (No plugin required!)</h2>
+    <h3>Upo part</h3>
+    <p>This mini guide is assuming you've already configured Upo and are currently using the browser plugin. If I need to include that part too, let me know.</p>
+    <p>Go to <a href="https://www.upoopu.com">https://www.upoopu.com</a> and log in with your credentials if you haven't already.<br>
+    After you're logged in click on "Setup intel api" and you're taken to <b>https://new.upoopu.com/#/intel-collection</b>(you may have to log in again).</p>
+    <p>Scroll down a little bit and you'll notice in the <b>In-Game Api</b> paragraph that your province name is shown with the Read and Write acces, plus a Token field.<br>
+    That token is what you need to generate and save, as you'll need it to configure the Intel sharing in Utopia Game.</p>
+
+    <img src="{% static "receiver/token.png" %}" alt="Upoopu token"/>
+
+    <h3>Utopia part</h3>
+    <p>Now go to the in-game preferences, click on the "Send intel to your own intel site." option and fill in "https://new.upoopu.com/api/upload"</p>
+
+    <img src="{% static "receiver/sendintel.png" %}" alt="Fill in the API URL">
+
+    <p>Click on OK and you will then be asked to fill in the token generated on the Upoopu site. This is what authenticates your submitted intel as coming from your province.<br>
+    After typing in the token click on OK again and then open your province Throne page. The game will start automatically sending intel to Upoopu. <br>
+    It is a little bit slower than a plugin (it doesn't update immediately) but after about 5 minutes it will have processed the queue. <br>
+    If you have the Upo site open somewhere you'll hear the familiar turd-dropping-in-water noise and your province's SoT will be uploaded.<br>
+    <br>
+    Try it out, and let me know if something isn't working the way I described it should, I may have skipped a step somewhere.
+    </p>
+
+
+
+  </body>
+</html>
